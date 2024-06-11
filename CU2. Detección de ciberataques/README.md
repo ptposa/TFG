@@ -1,14 +1,33 @@
 # Caso de uso 2
 ## Detección de ciberataques empleando técnicas de aprendizaje automático
+En este segundo caso de uso, exploraremos cómo las diferentes técnicas de Aprendizaje Automático pueden aplicarse a la detección de ciberataques en la red. A lo largo de estas páginas, veremos cómo el Aprendizaje Automático permite analizar grandes volúmenes de datos, identificar patrones y características distintivas de tráfico etiquetado, y entrenar modelos predictivos capaces de detectar nuevas amenazas de red con alta precisión y velocidad. Para ello, emplearemos diferentes algoritmos de Aprendizaje Automático, los cuales entrenaremos con el dataset elegido para este caso de uso, y tras este entrenamiento, generaremos diferentes modelos que luego decidiremos cuál es el que mejor realiza nuevas predicciones.
 
-### :dart: Objetivos
+### :dart: Búsqueda de un conjunto de datos adecuado
+Los modelos de aprendizaje automático aprenden de los datos proporcionados y aplican este conocimiento en la toma de decisiones. En el contexto de este caso de uso, es decir, en la detección de anomalías de red, los datos con los que se entrenen los modelos deben, al menos, tener una cantidad adecuada de ejemplos de diferentes tipos de ataque, contar con un número de patrones representativo y poseer una dimensionalidad adecuada. Todo esto es debido a que el gran valor de un modelo no sólo depende del algoritmo empleado, sino sobre todo de la calidad de los datos introducidos.
 
+Adicionalmente, para una correcta categorización de todos los paquetes que viajen a través de la red, es necesario que el conjunto de datos elegido posea un tráfico completo (funcional y no funcional), múltiples protocolos de red, conexiones internas y externas y, lo más importante, que tenga los datos etiquetados. Se requiere que el dataset tenga los datos etiquetados con los diferentes nombres de ataques a los que pertenece cada registro ya que, al tratarse de modelos de aprendizaje automático supervisado, es necesario que primero el sistema aprenda de una correcta clasificación para que posteriormente pueda extraer patrones y realizar sus propias predicciones.
 
-### :abacus: Conceptos previos
+La creación de un conjunto de datos propio, como sí hemos realizado en el primer caso de uso, excede el alcance de este proyecto, debido a que es bastante complejo generar tráfico de red donde se produzcan diferentes tipos de ataques. Es por ello, por lo que se optó por utilizar un dataset público.
 
+### :abacus: Comparativa de diferentes conjuntos de datos existentes
+Para evaluar los diferentes conjuntos de datos públicos utilizados en la detección de ciberataques, hemos considerado las características necesarias mencionadas en el apartado anterior.
 
-### :pick: Desarrollo
+Uno de los datasets más conocidos en el mundo de la detección de intrusiones es el \textbf{KDD Cup 1999}, que ofrece una amplia variedad de ataques, aunque algunos están desactualizados. Este dataset contiene una gran cantidad de registros de tráfico de red simulado, generados mediante una variedad de herramientas y técnicas de simulación. Incluye tanto datos de tráfico normal como datos de varios tipos de ataques en un entorno de red simulado. Cada registro en el dataset tiene atributos que describen características de la conexión de red, como la duración de la conexión, los protocolos utilizados, la cantidad de bytes transferidos, entre otros. Además, cada registro está etiquetado con la categoría de ataque correspondiente o como tráfico normal.
 
+Otro dataset relevante es el \textbf{NSL-KDD}, que mejora algunos aspectos del KDD Cup 99, al ofrecer una mayor diversidad de ataques, con una distribución más equilibrada entre las clases de tráfico normal y las de ciberataques. Al igual que el KDD Cup 99, se centra en protocolos TCP/IP y ofrece una cobertura de tráfico basada en simulaciones. Otra característica a destacar de este dataset es que, a diferencia de su predecesor, incorpora datos de múltiples fuentes y escenarios. Los datos siguen estando completamente etiquetados para facilitar la clasificación.
+
+El conjunto de datos \textbf{UGR'16}, desarrollado por el Grupo de Investigación en Telemática de la Universidad de Granada (UGR), es otro recurso muy valioso en el campo de la detección de intrusiones en redes. Este conjunto de datos contiene registros de tráfico de red capturados en un entorno de laboratorio controlado durante un período de tiempo específico. Tal y como se menciona en la web de su universidad, estos datos proceden de varios recolectores netflow v9 ubicados estratégicamente en la red de un ISP español.
+
+Como cuarta alternativa, presentamos el conjunto de datos \textbf{CICIDS2017}, otro recurso de gran valor para la detección de intrusiones en redes informáticas. Creado por el Centro de Investigación en Seguridad Cibernética de Canadá (CIC), este dataset contiene registros de tráfico de red normal y de ciberataques. Se compone de nueve tipos de tráfico diferentes, incluyendo tráfico HTTP, FTP, SSH, y otros protocolos comunes, así como una variedad de ataques simulados y de tráfico malicioso. Posee ataques modernos y variados, lo que lo convierte en una herramienta valiosa para evaluar la capacidad de los sistemas de detección de intrusiones para identificar amenazas actuales. Además, este dataset también está etiquetado con información detallada sobre cada conexión de red.
+
+Existen otros dataset incluso más modernos que estos mencionados anteriormente, como por ejemplo: CSE-CIC-IDS2018, CIC-DDoS2019, CICEV2023 o CICIoV2024. Sin embargo, detallamos esos cuatro por ser los conjuntos de datos sobre los que consideramos que es más adecuado aprender a crear un modelo de aprendizaje por poseer menor complejidad en sus ataques.
+
+### :pick: Descripción del conjunto de datos NSL-KDD
+El conjunto de datos original (KDD Cup 99) fue creado y administrado por el Laboratorio Lincoln del MIT para el Programa de Evaluación de Detección de Intrusiones de DARPA. Este dataset incluye una amplia variedad de intrusiones simuladas en un entorno de red militar.
+
+El Laboratorio Lincoln del MIT creó un entorno de prueba para adquirir durante nueve semanas, una cantidad ingente datos procedentes del volcado de todo el tráfico de red producido en una red de área local (LAN) que simulaba a una LAN típica de la Fuerza Aérea de EE. UU. Durante este tiempo, operaron esta LAN como si fuera un verdadero entorno de la Fuerza Aérea, pero la acribillaron con múltiples ataques.
+
+Por su parte, el conjunto de datos NSL-KDD, una mejora del anterior, fue presentado en el Segundo Simposio IEEE sobre inteligencia computacional para aplicaciones de seguridad y defensa (CISDA) en 2009 por M. Tavallaee, E. Bagheri, W. Lu y A. Ghorbani.
 
 ### :rocket: Explotación
 En esta fase, entrenaremos diferentes algoritmos de *Machine Learning* con el objetivo de encontrar el modelo que mejor se ajuste a la detección de ciberataques en tiempo real.
